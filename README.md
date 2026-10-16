@@ -1,19 +1,26 @@
 # Vortoria
 
-Original web playground hub (not affiliated with other platforms).
+Original web playground hub (not affiliated with Vortex or other platforms).
 
-## Contents
-- `index.html` — Home, Games, Studio, Players, Servers
-- `assets/male.glb` / `assets/female.glb` — player models
-- `assets/clothing_template.png` — classic 512 clothing template
+**Repo:** https://github.com/GuestVRGT/vortoria  
+**Main playable project (huh):** https://github.com/GuestVRGT/huh · Pages: https://guestvrgt.github.io/huh/
 
-## Run locally
+## What's here
+- Landing page linking to **huh** (full games hub + 3D play)
+- Clothing template: https://raw.githubusercontent.com/GuestVRGT/huh/main/clothing-template.webp
+
+## Full hub build
+The complete multi-page Vortoria hub (Studio, Servers, clothing uploads, embedded play) is in `vortoria-site.zip` from the Grok session / your Google Drive.
+
 ```bash
+unzip vortoria-site.zip
+cd vortoria-site
 python3 -m http.server 8080
 ```
-Open http://localhost:8080
 
-## Servers
-Configure PlayFab Title ID and Photon App IDs on the Servers page (stored in your browser).
+## Servers (your IDs)
+- PlayFab Title: `164E0A`
+- Photon Realtime / Chat: configured in huh `SERVICES` and Vortoria Servers page
 
-GitHub Pages: enable Pages from the `main` branch root.
+## Enable GitHub Pages
+Settings → Pages → Deploy from `main` / root.
