@@ -1,6 +1,6 @@
 # Vortoria
 
-Original web playground hub (not affiliated with Vortex or other platforms).
+Original web playground hub (not affiliated with Vortex or Polytoria).
 
 **Repo:** https://github.com/GuestVRGT/vortoria  
 **Main playable project (huh):** https://github.com/GuestVRGT/huh · Pages: https://guestvrgt.github.io/huh/
@@ -17,10 +17,3 @@ unzip vortoria-site.zip
 cd vortoria-site
 python3 -m http.server 8080
 ```
-
-## Servers (your IDs)
-- PlayFab Title: `164E0A`
-- Photon Realtime / Chat: configured in huh `SERVICES` and Vortoria Servers page
-
-## Enable GitHub Pages
-Settings → Pages → Deploy from `main` / root.
