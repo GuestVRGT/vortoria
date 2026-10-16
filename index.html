@@ -1,112 +1,29 @@
 <!DOCTYPE html>
-<html lang=en><head>
-<meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1">
+<html lang="en"><head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>Vortoria</title>
 <style>
-*{box-sizing:border-box;margin:0}body{font-family:system-ui;background:#0a0e1a;color:#e8eefc;min-height:100vh}
-header{display:flex;gap:8px;padding:10px 14px;background:#0c1220;border-bottom:1px solid #2a3550;flex-wrap:wrap;align-items:center}
-.logo{font-weight:800;background:linear-gradient(135deg,#9ec1ff,#3dd6b0);-webkit-background-clip:text;background-clip:text;color:transparent}
-nav button{background:0;border:0;color:#8b9bb8;padding:8px 10px;border-radius:8px;cursor:pointer;font-weight:600}
-nav button.active,nav button:hover{color:#fff;background:#1a2438}
-main{padding:16px;max-width:900px;margin:0 auto}
-.card{background:#12182a;border:1px solid #2a3550;border-radius:12px;padding:14px;margin:10px 0}
-.btn{background:linear-gradient(135deg,#4f7cff,#2ec9a0);border:0;border-radius:10px;padding:10px 14px;font-weight:700;cursor:pointer;color:#061018}
-#play{display:none;position:fixed;inset:0;background:#05080f;z-index:9}
-#play.on{display:block}#c{width:100%;height:100%}
-#hud{position:absolute;left:10px;top:10px;background:#0008;padding:8px;border-radius:8px;font-size:12px}
-#leave{position:absolute;right:10px;top:10px}
-input{background:#0a0e1a;border:1px solid #2a3550;color:#fff;padding:8px;border-radius:8px;width:100%;margin:4px 0}
-label{font-size:12px;color:#8b9bb8;display:block}
+body{margin:0;min-height:100vh;font-family:system-ui,sans-serif;background:#0a0e1a;color:#e8eefc;
+display:flex;align-items:center;justify-content:center;padding:24px;
+background:radial-gradient(ellipse 80% 50% at 20% -10%,rgba(91,140,255,.22),transparent 50%),#0a0e1a}
+.card{max-width:560px;background:rgba(18,24,42,.95);border:1px solid rgba(130,160,255,.2);border-radius:16px;padding:28px;line-height:1.55}
+h1{margin:0 0 8px;background:linear-gradient(135deg,#9ec1ff,#3dd6b0);-webkit-background-clip:text;background-clip:text;color:transparent}
+p{color:#8b9bb8}a{color:#3dd6b0}
+.btn{display:inline-block;margin:8px 8px 0 0;padding:12px 16px;border-radius:12px;
+background:linear-gradient(135deg,#4f7cff,#2ec9a0);color:#061018;font-weight:700;text-decoration:none}
+.btn2{background:rgba(255,255,255,.06);color:#e8eefc;border:1px solid rgba(130,160,255,.25)}
+ul{color:#c5d2ee}
 </style></head><body>
-<header><div class=logo>Vortoria</div>
-<nav>
-<button type=button class=active data-v=home>Home</button>
-<button type=button data-v=games>Games</button>
-<button type=button data-v=servers>Servers</button>
-</nav></header>
-<main>
-<section id=home>
-<div class=card><h2>Playground</h2><p style="color:#8b9bb8">360 look · WASD · click canvas to lock mouse · avatar faces move direction</p>
-<button class=btn type=button id=go>Quick Play</button></div>
-</section>
-<section id=games class=card style=display:none>
-<button class=btn type=button id=go2>Join Playground</button>
-</section>
-<section id=servers class=card style=display:none>
-<label>PlayFab Title</label><input id=pf value=164E0A>
-<label>Photon Realtime</label><input id=pr value=45b1dd1e-3c30-4f22-99b3-9f169625e7c9>
-<label>Photon Chat</label><input id=pc value=0d2bdce2-f187-4b17-9fdd-5c22ace39794>
-<button class=btn type=button id=save>Save</button>
-</section>
-</main>
-<div id=play><canvas id=c></canvas><div id=hud>Vortoria</div><button class=btn type=button id=leave>Leave</button></div>
-<script src="https://cdn.jsdelivr.net/npm/three@0.149.0/build/three.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.149.0/examples/js/loaders/GLTFLoader.js"></script>
-<script>
-const $=s=>document.querySelector(s);
-document.querySelectorAll('[data-v]').forEach(b=>b.onclick=()=>{
-  document.querySelectorAll('[data-v]').forEach(x=>x.classList.toggle('active',x===b));
-  ['home','games','servers'].forEach(id=>$('#'+id).style.display=id===b.dataset.v?'block':'none');
-});
-$('#save').onclick=()=>{localStorage.vortoria_servers=JSON.stringify({pf:pf.value,pr:pr.value,pc:pc.value});alert('Saved on this device')};
-let running=0,yaw=0,pitch=.35,keys={},velY=0,onG=0;
-const scene=new THREE.Scene();scene.background=new THREE.Color(0x87b8d8);
-scene.fog=new THREE.Fog(0x87b8d8,40,90);
-const camera=new THREE.PerspectiveCamera(70,1,.1,200);
-const renderer=new THREE.WebGLRenderer({canvas:$('#c'),antialias:true});
-const player=new THREE.Group();player.position.set(0,1,0);scene.add(player);
-scene.add(new THREE.AmbientLight(0xffffff,.55));
-const sun=new THREE.DirectionalLight(0xffffff,.85);sun.position.set(8,20,6);scene.add(sun);
-const ground=new THREE.Mesh(new THREE.BoxGeometry(60,.5,60),new THREE.MeshStandardMaterial({color:0x3d8f4a}));
-ground.position.y=-.25;scene.add(ground);
-[[0,1,-6],[4,2,2],[-5,1.5,4]].forEach(([x,y,z])=>{
-  const m=new THREE.Mesh(new THREE.BoxGeometry(3,y*2,3),new THREE.MeshStandardMaterial({color:0x6b7cff}));
-  m.position.set(x,y,z);scene.add(m);
-});
-new THREE.GLTFLoader().load('https://cdn.jsdelivr.net/gh/GuestVRGT/huh@main/male.glb',g=>{
-  g.scene.traverse(o=>{if(o.isMesh)o.material=o.material.clone()});
-  player.add(g.scene);
-},undefined,()=>{
-  const body=new THREE.Mesh(new THREE.CapsuleGeometry(.35,.9,4,8),new THREE.MeshStandardMaterial({color:0x5b8cff}));
-  body.position.y=1;player.add(body);
-});
-$('#c').onclick=()=>$('#c').requestPointerLock&&$('#c').requestPointerLock();
-document.onmousemove=e=>{
-  if(!running||document.pointerLockElement!==$('#c'))return;
-  yaw-=e.movementX*.0032;
-  pitch=Math.max(-1.45,Math.min(1.45,pitch-e.movementY*.0028));
-};
-window.onkeydown=e=>{keys[e.code]=1;if(e.code==='Space')keys.jump=1};
-window.onkeyup=e=>{keys[e.code]=0};
-function start(){running=1;$('#play').classList.add('on');player.position.set(0,1,0);velY=0;yaw=0;pitch=.35;onResize();loop()}
-function stop(){running=0;$('#play').classList.remove('on');document.exitPointerLock&&document.exitPointerLock()}
-$('#go').onclick=$('#go2').onclick=start;$('#leave').onclick=stop;
-function onResize(){const w=innerWidth,h=innerHeight;camera.aspect=w/h;camera.updateProjectionMatrix();renderer.setSize(w,h,false)}
-window.onresize=onResize;
-let last=performance.now();
-function loop(){
-  if(!running)return;requestAnimationFrame(loop);
-  const now=performance.now(),dt=Math.min(.05,(now-last)/1000);last=now;
-  let x=(keys.KeyD||0)-(keys.KeyA||0),z=(keys.KeyW||0)-(keys.KeyS||0);
-  const len=Math.hypot(x,z)||1;x/=len;z/=len;
-  const sy=Math.sin(yaw),cy=Math.cos(yaw);
-  const mx=x*cy+z*sy,mz=-x*sy+z*cy;
-  player.position.x+=mx*7.5*dt;player.position.z+=mz*7.5*dt;
-  if(keys.jump&&onG){velY=9;onG=0;keys.jump=0}
-  velY-=22*dt;player.position.y+=velY*dt;
-  if(player.position.y<=1){player.position.y=1;velY=0;onG=1}
-  if(Math.hypot(mx,mz)>.02){
-    let face=Math.atan2(mx,mz),cur=player.rotation.y,d=face-cur;
-    while(d>Math.PI)d-=Math.PI*2;while(d<-Math.PI)d+=Math.PI*2;
-    player.rotation.y=cur+d*Math.min(1,14*dt);
-  }
-  const dist=5.5;
-  const tx=player.position.x+Math.sin(yaw)*dist*Math.cos(pitch);
-  const ty=player.position.y+1.4+Math.sin(pitch)*dist;
-  const tz=player.position.z+Math.cos(yaw)*dist*Math.cos(pitch);
-  camera.position.lerp(new THREE.Vector3(tx,ty,tz),1-Math.pow(.00005,dt));
-  camera.lookAt(player.position.x,player.position.y+1.15,player.position.z);
-  $('#hud').textContent='Vortoria · 360 look · WASD · Space jump';
-  renderer.render(scene,camera);
-}
-</script></body></html>
+<div class="card">
+<h1>Vortoria</h1>
+<p>Website + client are split so the full game can live on GitHub Pages — no local server.</p>
+<ul>
+<li><strong>Website</strong> (this page): links and overview</li>
+<li><strong>Client</strong>: full app — Games, Studio, clothing, 360° camera, multiplayer</li>
+</ul>
+<p>Open the client (enable Pages on that repo if needed):</p>
+<a class="btn" href="https://guestvrgt.github.io/vortoria-client/">Play Vortoria Client</a>
+<a class="btn btn2" href="https://github.com/GuestVRGT/vortoria-client">Client source</a>
+<p style="margin-top:16px;font-size:.9rem">360° look · avatar follows you · PlayFab/Photon · models from CDN</p>
+</div>
+</body></html>
