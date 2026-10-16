@@ -4,26 +4,31 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <meta name="theme-color" content="#0a0e1a"/>
-<title>Vortoria</title>
+<title>Vortoria — Games</title>
 <style>
-:root{--bg:#0a0e1a;--panel:#12182a;--border:#2a3550;--text:#e8eefc;--muted:#8b9bb8;--accent:#5b8cff}
+:root{--bg:#0a0e1a;--panel:#12182a;--border:rgba(130,160,255,.18);--text:#e8eefc;--muted:#8b9bb8}
 *{box-sizing:border-box;margin:0}
-body{font-family:system-ui,sans-serif;background:radial-gradient(ellipse 80% 50% at 20% -10%,rgba(91,140,255,.2),transparent 50%),var(--bg);color:var(--text);min-height:100vh}
-header{display:flex;align-items:center;gap:16px;padding:14px 20px;border-bottom:1px solid var(--border);background:rgba(8,12,22,.85);backdrop-filter:blur(10px)}
-.logo{font-weight:800;font-size:1.3rem;background:linear-gradient(135deg,#9ec1ff,#3dd6b0);-webkit-background-clip:text;background-clip:text;color:transparent}
-nav a{color:var(--muted);text-decoration:none;margin-right:14px;font-weight:600;font-size:.9rem}
-nav a:hover{color:#fff}
-main{max-width:960px;margin:0 auto;padding:28px 18px 48px}
-h1{font-size:clamp(1.6rem,3vw,2.2rem);margin-bottom:8px}
-.lead{color:var(--muted);margin-bottom:24px;line-height:1.5}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
-.card{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:10px}
-.card h3{font-size:1.05rem}.card p{color:var(--muted);font-size:.88rem;flex:1;line-height:1.45}
-.badge{display:inline-block;font-size:.7rem;font-weight:700;text-transform:uppercase;padding:3px 8px;border-radius:999px;background:rgba(61,214,176,.15);color:#3dd6b0}
-.btn{display:inline-block;text-align:center;text-decoration:none;border:none;border-radius:10px;padding:11px 14px;font-weight:700;cursor:pointer;
-background:linear-gradient(135deg,#4f7cff,#2ec9a0);color:#061018}
-.btn.secondary{background:rgba(255,255,255,.06);color:var(--text);border:1px solid var(--border)}
-footer{text-align:center;padding:20px;color:var(--muted);font-size:.78rem;border-top:1px solid var(--border)}
+body{font-family:system-ui,-apple-system,sans-serif;background:radial-gradient(ellipse 80% 50% at 15% -10%,rgba(91,140,255,.22),transparent 50%),var(--bg);color:var(--text);min-height:100vh}
+header{display:flex;align-items:center;gap:18px;padding:12px 20px;border-bottom:1px solid var(--border);background:rgba(8,12,22,.88);backdrop-filter:blur(12px);position:sticky;top:0;z-index:10}
+.logo{font-weight:800;font-size:1.35rem;letter-spacing:-.03em;background:linear-gradient(135deg,#9ec1ff,#3dd6b0);-webkit-background-clip:text;background-clip:text;color:transparent}
+nav{display:flex;gap:6px;flex:1;flex-wrap:wrap}
+nav a{color:var(--muted);text-decoration:none;padding:8px 12px;border-radius:10px;font-weight:600;font-size:.9rem}
+nav a:hover{color:#fff;background:rgba(255,255,255,.04)}
+.chip{font-size:.82rem;color:var(--muted);padding:6px 10px;border-radius:999px;border:1px solid var(--border)}
+main{max-width:1100px;margin:0 auto;padding:28px 18px 60px}
+h1{font-size:clamp(1.5rem,3vw,2rem);margin-bottom:6px}
+.lead{color:var(--muted);margin-bottom:22px;line-height:1.5;max-width:640px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}
+.card{background:var(--panel);border:1px solid var(--border);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 10px 28px rgba(0,0,0,.25)}
+.thumb{height:140px;background:linear-gradient(135deg,#1a2744,#243a5c);display:flex;align-items:center;justify-content:center;font-size:2.5rem}
+.card-body{padding:14px 16px 16px;display:flex;flex-direction:column;gap:8px;flex:1}
+.card h3{font-size:1.05rem}
+.card p{color:var(--muted);font-size:.88rem;line-height:1.45;flex:1}
+.meta{font-size:.75rem;color:#6b7a96}
+.btn{display:block;text-align:center;text-decoration:none;border-radius:12px;padding:11px 14px;font-weight:700;
+background:linear-gradient(135deg,#4f7cff,#2ec9a0);color:#061018;margin-top:4px}
+.btn:hover{filter:brightness(1.06)}
+footer{text-align:center;padding:18px;color:var(--muted);font-size:.78rem;border-top:1px solid var(--border)}
 </style>
 </head>
 <body>
@@ -31,28 +36,43 @@ footer{text-align:center;padding:20px;color:var(--muted);font-size:.78rem;border
   <div class="logo">Vortoria</div>
   <nav>
     <a href="#games">Games</a>
-    <a href="https://github.com/GuestVRGT/vortoria-client">Client</a>
-    <a href="https://github.com/GuestVRGT/vortoria">Source</a>
+    <a href="https://guestvrgt.github.io/vortoria-client/">Client</a>
   </nav>
+  <span class="chip">Website</span>
 </header>
 <main>
-  <h1>Discover experiences</h1>
-  <p class="lead">This is the <strong>website</strong>. Click a game to open the <strong>client</strong> and play — no local server.</p>
+  <h1>Games</h1>
+  <p class="lead">Browse here. When you press <strong>Play</strong>, Vortoria opens the <strong>client</strong> (same idea as Roblox / Vortex).</p>
   <div class="grid" id="games">
-    <div class="card">
-      <span class="badge">Official</span>
-      <h3>Playground</h3>
-      <p>3D explore with 360° camera, jump pads, and your avatar.</p>
-      <a class="btn" href="https://guestvrgt.github.io/vortoria-client/?play=1">Play</a>
-    </div>
-    <div class="card">
-      <span class="badge">Client</span>
-      <h3>Open client home</h3>
-      <p>Servers, games list, and play menu inside the client app.</p>
-      <a class="btn secondary" href="https://guestvrgt.github.io/vortoria-client/">Open client</a>
-    </div>
+    <article class="card">
+      <div class="thumb" aria-hidden="true">🗺️</div>
+      <div class="card-body">
+        <h3>Playground</h3>
+        <p>Explore, jump, and look around with full 360° camera control.</p>
+        <span class="meta">Official · max 20 players</span>
+        <a class="btn" href="https://guestvrgt.github.io/vortoria-client/?game=playground">Play</a>
+      </div>
+    </article>
+    <article class="card">
+      <div class="thumb" aria-hidden="true">🧱</div>
+      <div class="card-body">
+        <h3>Obby Trial</h3>
+        <p>Platform hops and pads — same client, different experience id.</p>
+        <span class="meta">Official · max 12 players</span>
+        <a class="btn" href="https://guestvrgt.github.io/vortoria-client/?game=obby">Play</a>
+      </div>
+    </article>
+    <article class="card">
+      <div class="thumb" aria-hidden="true">🌐</div>
+      <div class="card-body">
+        <h3>Open client</h3>
+        <p>Launch the client home without auto-joining a place.</p>
+        <span class="meta">Client app</span>
+        <a class="btn" href="https://guestvrgt.github.io/vortoria-client/">Open client</a>
+      </div>
+    </article>
   </div>
 </main>
-<footer>Vortoria website · game runs on vortoria-client</footer>
+<footer>Vortoria website · playable experiences run on vortoria-client</footer>
 </body>
 </html>
