@@ -2,10 +2,32 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="theme-color" content="#0a0e1a" />
 <title>Vortoria</title>
-<meta http-equiv="refresh" content="0;url=https://guestvrgt.github.io/huh/">
+<style>
+  body{margin:0;min-height:100vh;font-family:system-ui,sans-serif;background:#0a0e1a;color:#e8eefc;
+  display:flex;align-items:center;justify-content:center;padding:24px;
+  background:radial-gradient(ellipse 80% 50% at 20% -10%,rgba(91,140,255,.22),transparent 50%),#0a0e1a}
+  .card{max-width:520px;background:rgba(18,24,42,.92);border:1px solid rgba(130,160,255,.18);border-radius:16px;padding:28px}
+  h1{margin:0 0 8px;background:linear-gradient(135deg,#9ec1ff,#3dd6b0);-webkit-background-clip:text;background-clip:text;color:transparent}
+  p{color:#8b9bb8;line-height:1.5}
+  a{color:#3dd6b0} .btn{display:inline-block;margin:8px 8px 0 0;padding:12px 16px;border-radius:12px;
+  background:linear-gradient(135deg,#4f7cff,#2ec9a0);color:#061018;font-weight:700;text-decoration:none}
+  code{background:#0006;padding:2px 6px;border-radius:4px;font-size:.85rem}
+</style>
 </head>
 <body>
-<p>Vortoria assets are being published. For the full hub, see <a href="https://github.com/GuestVRGT/vortoria">repo</a> or the main project <a href="https://github.com/GuestVRGT/huh">huh</a>.</p>
+<div class="card">
+  <h1>Vortoria</h1>
+  <p>Original playground hub. Full single-file build is in the release artifacts from the Grok session; models and clothing template live on the sibling <a href="https://github.com/GuestVRGT/huh">huh</a> repo.</p>
+  <p><strong>Play the main project:</strong></p>
+  <a class="btn" href="https://guestvrgt.github.io/huh/">Open huh (GitHub Pages)</a>
+  <a class="btn" href="https://github.com/GuestVRGT/huh">huh source</a>
+  <p style="margin-top:18px">Clothing template (classic 512):<br>
+  <a href="https://raw.githubusercontent.com/GuestVRGT/huh/main/clothing-template.webp">clothing-template.webp</a></p>
+  <p>Local full hub: download <code>vortoria-site.zip</code> from the chat, then<br>
+  <code>python3 -m http.server 8080</code></p>
+</div>
 </body>
 </html>
